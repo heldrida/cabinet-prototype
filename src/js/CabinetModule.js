@@ -12,7 +12,7 @@ function CabinetModule (params) {
 	// properties
 	this.module = params.el;
 	this.layers = this.module.querySelectorAll('img');
-	this.bounds,
+	this.bounds = this.module.getBoundingClientRect();
 	this.x,
 	this.y,
 	this.w,
@@ -53,13 +53,11 @@ function CabinetModule (params) {
 
 	this.onMouseMove = function (event) {
 
-		this.bounds = this.module.getBoundingClientRect();
-
 		this.calcPositions.call(this, event);
 
 	}
 
-	this.calcPositions = function () {
+	this.calcPositions = function (event) {
 
 		// box module origin (top/left) positions
 		this.x = this.bounds.left;
@@ -73,13 +71,21 @@ function CabinetModule (params) {
 		this.cx = this.w / 2;
 		this.cy = this.h / 2;
 
-		// offset from center
-		this.ix = (event.clientX - this.x - this.cx) / this.cx;
-		this.iy = (event.clientY - this.y - this.cy) / this.cy;
+		if (typeof event !== 'undefined') {
 
-		// amount from origin (top/left)
-		this.ax = event.clientX / this.w;
-		this.ay = event.clientY / this.h;
+			// offset from center
+			this.ix = (event.clientX - this.x - this.cx) / this.cx;
+			this.iy = (event.clientY - this.y - this.cy) / this.cy;
+
+			// amount from origin (top/left)
+			this.ax = event.clientX / this.w;
+			this.ay = event.clientY / this.h;
+
+		} else {
+
+			this.ix, this.iy, this.ax, this.ay = 0;
+
+		}
 
 		if (this.debug) {
 			console.log('w: ' + this.w + ', h: ' + this.h + ', x: ' + this.x + ', y: ' + this.y + ', cx: ' + this.cx + ', this.cy: ' + this.cy + ', ix: ' + this.ix + ', iy: ' + this.iy);

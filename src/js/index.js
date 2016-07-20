@@ -35,19 +35,19 @@ function CabinetModule (params) {
 
 		this.bounds = this.module.getBoundingClientRect();
 
-		// mouse cursor position
+		// box module top/left positions
 		this.x = this.bounds.left;
 		this.y = this.bounds.top;
 
-		// size
+		// box module size
 		this.w = this.bounds.width;
 		this.h = this.bounds.height;
 
-		// center
+		// box module center
 		this.cx = this.w / 2;
 		this.cy = this.h / 2;
 
-		// amount from center
+		// offset from center
 		this.ix = (event.clientX - this.x - this.cx) / this.cx;
 		this.iy = (event.clientY - this.y - this.cy) / this.cy;
 

@@ -1,13 +1,15 @@
-console.log('Hello app!');
+function CabinetModule (params) {
 
-function App (val) {
+	// properties
+	this.module = params.el;
+	this.imgList = this.module.querySelectorAll('img');
 
-	console.log('App initialised!');
-
-	this.calc = function (val) {
-		return val * 2;
-	}
+	console.log(this.module);
 
 }
 
-module.exports = App;
+window.cabinetModule = new CabinetModule({
+	el: document.querySelector('.cabinet-module')
+});
+
+module.exports = CabinetModule;

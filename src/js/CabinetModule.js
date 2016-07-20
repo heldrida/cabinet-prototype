@@ -45,6 +45,25 @@ function CabinetModule (params) {
 		// cast
 		friction = parseFloat(friction);
 
+		// set by vendor
+		this.setByVendor.call(this, element, x, y, friction);
+
+	}
+
+	this.setByVendor = function (element, x, y, friction) {
+
+		// element.style.webkitTransform = null;
+		// element.style.MozTransform = null;
+		// element.style.msTransform = null;
+		// element.style.oTransform = null;
+		element.style.transform = 'translate3d(' + this.calcByFriction(this.ix, friction) + '%, ' + this.calcByFriction(this.iy, friction) * 10 + '%, 0)';
+
+	}
+
+	this.calcByFriction = function (value, friction) {
+
+		return (value * 10) * friction;
+
 	}
 
 	this.onMouseMove = function (event) {
@@ -54,6 +73,8 @@ function CabinetModule (params) {
 	}
 
 	this.calcPositions = function (event) {
+
+		this.bounds = this.module.getBoundingClientRect();
 
 		// box module origin (top/left) positions
 		this.x = this.bounds.left;
@@ -84,7 +105,7 @@ function CabinetModule (params) {
 		}
 
 		if (this.debug) {
-			console.log('w: ' + this.w + ', h: ' + this.h + ', x: ' + this.x + ', y: ' + this.y + ', cx: ' + this.cx + ', this.cy: ' + this.cy + ', ix: ' + this.ix + ', iy: ' + this.iy);
+			console.log('w: ' + this.w + ', h: ' + this.h + ', x: ' + this.x + ', y: ' + this.y + ', cx: ' + this.cx + ', this.cy: ' + this.cy + ', ix: ' + this.ix + ', iy: ' + this.iy + ', ax: ' + this.ax + ', ay: ' + this.ay);
 		}
 
 	}

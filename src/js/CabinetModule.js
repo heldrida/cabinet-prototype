@@ -68,7 +68,9 @@ function CabinetModule (params) {
 
 	this.onMouseMove = function (event) {
 
-		this.calcPositions.call(this, event);
+		if (this.module.contains(event.target)) {
+			this.calcPositions.call(this, event);
+		}
 
 	}
 
@@ -95,8 +97,8 @@ function CabinetModule (params) {
 			this.iy = (event.clientY - this.y - this.cy) / this.cy;
 
 			// amount from origin (top/left)
-			this.ax = event.clientX / this.w;
-			this.ay = event.clientY / this.h;
+			this.ax = (event.clientX - this.x) / this.w;
+			this.ay = (event.clientY - this.y) / this.h;
 
 		} else {
 

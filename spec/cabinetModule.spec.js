@@ -39,6 +39,15 @@ describe("Cabinet module", function () {
 			expect(size).toEqual(expectSize);
 		});
 
+		it('should calculate the box origin', function () {
+			var origin = {
+				x: cabinetModule.x,
+				y: cabinetModule.y
+			};
+			expect(origin.x).not.toBeNull();
+			expect(origin.y).not.toBeNull();
+		});
+
 		it('should calculate the center correctly', function () {
 			var center = {
 				cx: cabinetModule.cx,

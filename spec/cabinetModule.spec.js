@@ -27,6 +27,18 @@ describe("Cabinet module", function () {
 			cabinetModule.calcPositions();
 		});
 
+		it('should calculate the box size correctly', function () {
+			var size = {
+				w: cabinetModule.w,
+				h: cabinetModule.h
+			};
+			var expectSize = {
+				w: 500,
+				h: 500
+			};
+			expect(size).toEqual(expectSize);
+		});
+
 		it('should calculate the center correctly', function () {
 			var center = {
 				cx: cabinetModule.cx,

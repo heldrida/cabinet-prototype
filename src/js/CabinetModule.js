@@ -45,10 +45,6 @@ function CabinetModule (params) {
 		// cast
 		friction = parseFloat(friction);
 
-		if (this.debug) {
-			console.log('friction', friction);
-		}
-
 	}
 
 	this.onMouseMove = function (event) {

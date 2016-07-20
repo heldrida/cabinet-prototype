@@ -35,6 +35,14 @@ function CabinetModule (params) {
 
 		this.bounds = this.module.getBoundingClientRect();
 
+		this.calcPositions.call(this, event);
+
+		console.log('w: ' + this.w + ', h: ' + this.h + ', x: ' + this.x + ', y: ' + this.y + ', cx: ' + this.cx + ', this.cy: ' + this.cy + ', ix: ' + this.ix + ', iy: ' + this.iy);
+
+	}
+
+	this.calcPositions = function () {
+
 		// box module top/left positions
 		this.x = this.bounds.left;
 		this.y = this.bounds.top;
@@ -50,8 +58,6 @@ function CabinetModule (params) {
 		// offset from center
 		this.ix = (event.clientX - this.x - this.cx) / this.cx;
 		this.iy = (event.clientY - this.y - this.cy) / this.cy;
-
-		console.log('w: ' + this.w + ', h: ' + this.h + ', x: ' + this.x + ', y: ' + this.y + ', cx: ' + this.cx + ', this.cy: ' + this.cy + ', ix: ' + this.ix + ', iy: ' + this.iy);
 
 	}
 

@@ -3,15 +3,17 @@ function CabinetModule (params) {
 	// properties
 	this.module = params.el;
 	this.layers = this.module.querySelectorAll('img');
-	this.bounds = null;
-	this.x = null;
-	this.y = null;
-	this.w = null;
-	this.h = null;
-	this.cx = null;
-	this.cy = null;
-	this.ix = null;
-	this.iy = null;
+	this.bounds,
+	this.x,
+	this.y,
+	this.w,
+	this.h,
+	this.cx,
+	this.cy,
+	this.ix,
+	this.iy,
+	this.ax,
+	this.ay = null;
 
 	// methods
 	this.onAnimationFrame = function () {
@@ -37,13 +39,11 @@ function CabinetModule (params) {
 
 		this.calcPositions.call(this, event);
 
-		console.log('w: ' + this.w + ', h: ' + this.h + ', x: ' + this.x + ', y: ' + this.y + ', cx: ' + this.cx + ', this.cy: ' + this.cy + ', ix: ' + this.ix + ', iy: ' + this.iy);
-
 	}
 
 	this.calcPositions = function () {
 
-		// box module top/left positions
+		// box module origin (top/left) positions
 		this.x = this.bounds.left;
 		this.y = this.bounds.top;
 
@@ -58,6 +58,12 @@ function CabinetModule (params) {
 		// offset from center
 		this.ix = (event.clientX - this.x - this.cx) / this.cx;
 		this.iy = (event.clientY - this.y - this.cy) / this.cy;
+
+		// amount from origin (top/left)
+		this.ax = event.clientX / this.w;
+		this.ay = event.clientY / this.h;
+
+		console.log('w: ' + this.w + ', h: ' + this.h + ', x: ' + this.x + ', y: ' + this.y + ', cx: ' + this.cx + ', this.cy: ' + this.cy + ', ix: ' + this.ix + ', iy: ' + this.iy);
 
 	}
 

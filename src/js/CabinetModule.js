@@ -1,5 +1,11 @@
 function CabinetModule (params) {
 
+	// Error handler
+	if (typeof params === 'undefined' || typeof params.el === 'undefined') {
+		throw new Error("Params missing!");
+		return false;
+	}
+
 	// config
 	this.debug = params.debug;
 

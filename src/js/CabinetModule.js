@@ -13,6 +13,8 @@ function CabinetModule (params) {
 	this.module = params.el;
 	this.layers = this.module.querySelectorAll('img');
 	this.bounds = this.module.getBoundingClientRect();
+	this.velocity_f = 0.03;
+	this.velocityCachePos = {};
 	this.x,
 	this.y,
 	this.w,
@@ -30,11 +32,43 @@ function CabinetModule (params) {
 		// todo: cancel if mouse is not hover the module
 
 	    for (var i = 0; i < this.layers.length; i++) {
-	    	this.setStyle(this.layers[i], this.x, this.y);
+
+	    	(function (i) {
+
+				// set the style
+				var layer = 'layer' + i;
+
+				// calculate the velocity
+				this.getVelocity(layer, i);
+
+				var x = this.velocityCachePos[layer].x;
+				var y = this.velocityCachePos[layer].y;
+
+				this.setStyle(this.layers[i], x, y);
+
+	    	}.call(this, i), 0);
+
 	    }
 
 	    // callback
 		requestAnimationFrame(this.onAnimationFrame.bind(this));
+
+	}
+
+	this.getVelocity = function (layer, index) {
+
+		// define if doesn't exist
+		if (typeof this.velocityCachePos[layer] === 'undefined') {
+			this.velocityCachePos[layer] = {
+				x: this.x ? this.x : 0,
+				y: this.y ? this.y : 0
+			};
+		}
+
+		if (this.ix && this.iy) {
+			this.velocityCachePos[layer].x += (this.ix - this.velocityCachePos[layer].x) * this.velocity_f;
+			this.velocityCachePos[layer].y += (this.iy - this.velocityCachePos[layer].y) * this.velocity_f;
+		}
 
 	}
 
@@ -56,7 +90,7 @@ function CabinetModule (params) {
 		// element.style.MozTransform = null;
 		// element.style.msTransform = null;
 		// element.style.oTransform = null;
-		element.style.transform = 'translate3d(' + this.calcByFriction(this.ix, friction) + '%, ' + this.calcByFriction(this.iy, friction) * 10 + '%, 0)';
+		element.style.transform = 'translate3d(' + this.calcByFriction(x, friction) + '%, ' + this.calcByFriction(y, friction) * 10 + '%, 0)';
 
 	}
 
@@ -68,6 +102,7 @@ function CabinetModule (params) {
 
 	this.onMouseMove = function (event) {
 
+		// update positions if current hovered element is child of module
 		if (this.module.contains(event.target)) {
 			this.calcPositions.call(this, event);
 		}

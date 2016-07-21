@@ -6,7 +6,7 @@ body {
 
 .cabinet-module {
 	width: 60vw;
-	height: 60vw * 0.75;
+	height: 60vw * 0.67;
 	position: relative;
 	margin: 0 auto;
 	margin-top: 60px;
@@ -15,10 +15,10 @@ body {
 
 	img {
 		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
+		top: -5%;
+		left: -5%;
+		width: 110%;
+		height: auto;
 		&:nth-child(1) {
 			z-index: 4;
 		}

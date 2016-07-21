@@ -7,7 +7,8 @@ function CabinetModule (params) {
 	}
 
 	// config
-	this.debug = params.debug;
+	this.debug = params.debug || false;
+	this.stats = params.stats || false;
 
 	// properties
 	this.module = params.el;
@@ -48,7 +49,7 @@ function CabinetModule (params) {
 	// methods
 	this.onAnimationFrame = function () {
 
-		this.stats.begin();
+		this.stats ? this.stats.begin() : null;
 
 	    for (var i = 0; i < this.layers.length; i++) {
 
@@ -69,7 +70,7 @@ function CabinetModule (params) {
 
 	    }
 
-		this.stats.end();
+		this.stats ? this.stats.end() : null;
 
 	    // callback
 		requestAnimationFrame(this.onAnimationFrame.bind(this));
@@ -281,8 +282,10 @@ function CabinetModule (params) {
 		}
 
 		// stats
-		if (typeof params.stats !== 'undefined') {
+		if (typeof params.stats !== 'undefined' && params.stats) {
 			this.setStats(params);
+		} else {
+
 		}
 
 		// start event listeners

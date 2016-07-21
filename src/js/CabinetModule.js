@@ -25,6 +25,8 @@ function CabinetModule (params) {
 	this.iy,
 	this.ax,
 	this.ay = null;
+	this.hasParent = params.hasParent;
+	this.original_img_ratio = null;
 
 	this.setGUILib = function (params) {
 
@@ -178,27 +180,102 @@ function CabinetModule (params) {
 
 	}
 
+	this.moduleKeepRatioSize = function () {
+
+		var r = params.original_img_ratio; // original img size
+		var w = this.module.offsetWidth;
+		var h = w * r;
+
+		if (this.hasParent) {
+			this.module.parentNode.style.height = h + 'px';
+		} else {
+			this.module.style.height = h + 'px';
+		}
+
+	}
+
+	this.getOriginalImageRatio = function () {
+
+		var p = new Promise(function (resolve, reject) {
+
+			var newImg = new Image();
+
+			newImg.onload = function() {
+
+				var height = newImg.height;
+				var width = newImg.width;
+				var ratio = height / width;
+
+				resolve(ratio);
+
+			}
+
+			newImg.onerror = function () {
+	            reject(false);
+			}
+
+			newImg.src = this.layers[0].getAttribute('src');
+
+		}.bind(this));
+
+		return p;
+
+	}
+
 	this.setEventListeners = function () {
 
 		window.addEventListener('mousemove', this.onMouseMove.bind(this));
+		window.addEventListener('resize', this.moduleKeepRatioSize.bind(this));
 
 	}
 
-	// gui user params
-	if (typeof params.dat_gui_instance !== 'undefined') {
-		this.setGUILib(params);
+	this.initialise = function () {
+
+		// gui user params
+		if (typeof params.dat_gui_instance !== 'undefined') {
+			this.setGUILib(params);
+		}
+
+		// stats
+		if (typeof params.stats !== 'undefined') {
+			this.setStats(params);
+		}
+
+		// start event listeners
+		this.setEventListeners();
+
+		// set module size
+		this.moduleKeepRatioSize();
+
+		// initialse animation
+		requestAnimationFrame(this.onAnimationFrame.bind(this));
+
 	}
 
-	// stats
-	if (typeof params.stats !== 'undefined') {
-		this.setStats(params);
+	// set original image ratio
+	if (typeof window.Promise !== 'undefined') {
+
+		var p = this.getOriginalImageRatio();
+
+		p.then(function (val) {
+
+			this.original_img_ratio = val;
+
+			this.initialise();
+
+		}.bind(this));
+
+	} else if (typeof params.original_img_ratio === 'number') {
+
+		this.original_img_ratio = params.original_img_ratio;
+
+		this.initialise();
+
+	} else {
+
+		throw new Error('Parameter for the original image ratio failling, required for IE.');
+
 	}
-
-	// start event listeners
-	this.setEventListeners();
-
-	// initialse animation
-	requestAnimationFrame(this.onAnimationFrame.bind(this));
 
 }
 

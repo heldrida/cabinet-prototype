@@ -7,5 +7,7 @@ window.cabinetModule = new CabinetModule({
 	el: document.querySelector('.cabinet-module'),
 	debug: false,
 	dat_gui_instance: new dat.GUI(),
-	stats: new Stats()
+	stats: new Stats(),
+	hasParent: false,
+	original_img_ratio: 933 / 1400
 });

@@ -26,6 +26,15 @@ function CabinetModule (params) {
 	this.ax,
 	this.ay = null;
 
+	this.setGUILib = function (params) {
+
+		this.gui = params.dat_gui_instance;
+
+		// user parameters
+		this.gui.add(this, 'velocity_f', 0, 1);
+
+	}
+
 	// methods
 	this.onAnimationFrame = function () {
 
@@ -163,6 +172,11 @@ function CabinetModule (params) {
 
 		window.addEventListener('mousemove', this.onMouseMove.bind(this));
 
+	}
+
+	// gui user params
+	if (typeof params.dat_gui_instance !== 'undefined') {
+		this.setGUILib(params);
 	}
 
 	// start event listeners

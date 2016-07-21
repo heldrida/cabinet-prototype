@@ -23,6 +23,7 @@
     "karma-jasmine": "^1.0.2",
     "karma-phantomjs-launcher": "^1.0.1",
     "karma-webpack": "^1.7.0",
+    "stats.js": "^0.16.0",
     "webpack": "^1.13.1"
   }
 }

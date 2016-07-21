@@ -32,13 +32,21 @@ function CabinetModule (params) {
 
 		// user parameters
 		this.gui.add(this, 'velocity_f', 0, 1);
+		this.gui.add(this, 'debug');
+	}
+
+	this.setStats = function (params) {
+
+		this.stats = params.stats;
+		this.stats.showPanel(0);
+		document.body.appendChild(this.stats.dom);
 
 	}
 
 	// methods
 	this.onAnimationFrame = function () {
 
-		// todo: cancel if mouse is not hover the module
+		this.stats.begin();
 
 	    for (var i = 0; i < this.layers.length; i++) {
 
@@ -58,6 +66,8 @@ function CabinetModule (params) {
 	    	}.call(this, i), 0);
 
 	    }
+
+		this.stats.end();
 
 	    // callback
 		requestAnimationFrame(this.onAnimationFrame.bind(this));
@@ -177,6 +187,11 @@ function CabinetModule (params) {
 	// gui user params
 	if (typeof params.dat_gui_instance !== 'undefined') {
 		this.setGUILib(params);
+	}
+
+	// stats
+	if (typeof params.stats !== 'undefined') {
+		this.setStats(params);
 	}
 
 	// start event listeners

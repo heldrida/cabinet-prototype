@@ -182,7 +182,7 @@ function CabinetModule (params) {
 
 	this.moduleKeepRatioSize = function () {
 
-		var r = params.original_img_ratio; // original img size
+		var r = this.original_img_ratio; // original img size
 		var w = this.module.offsetWidth;
 		var h = w * r;
 
@@ -296,7 +296,7 @@ function CabinetModule (params) {
 
 	}
 
-	// set original image ratio
+	// set original image ratio and then initialise the app
 	this.getOriginalImageRatio({
 		callback: this.initialise
 	});

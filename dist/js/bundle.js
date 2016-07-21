@@ -54,8 +54,7 @@
 		debug: false,
 		dat_gui_instance: new dat.GUI(),
 		stats: new Stats(),
-		hasParent: false,
-		original_img_ratio: 933 / 1400
+		hasParent: false
 	});
 
 /***/ },
@@ -4689,7 +4688,7 @@
 
 		this.moduleKeepRatioSize = function () {
 
-			var r = params.original_img_ratio; // original img size
+			var r = this.original_img_ratio; // original img size
 			var w = this.module.offsetWidth;
 			var h = w * r;
 
@@ -4803,7 +4802,7 @@
 
 		}
 
-		// set original image ratio
+		// set original image ratio and then initialise the app
 		this.getOriginalImageRatio({
 			callback: this.initialise
 		});

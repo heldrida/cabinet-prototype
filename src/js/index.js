@@ -8,6 +8,5 @@ window.cabinetModule = new CabinetModule({
 	debug: false,
 	dat_gui_instance: new dat.GUI(),
 	stats: new Stats(),
-	hasParent: false,
-	original_img_ratio: 933 / 1400
+	hasParent: false
 });

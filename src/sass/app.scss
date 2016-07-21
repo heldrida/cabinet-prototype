@@ -1,5 +1,9 @@
 @import "css3-mixins-lib";
 
+body {
+	background-color: #000;
+}
+
 .cabinet-module {
 	width: 60vw;
 	height: 60vw * 0.75;
@@ -7,7 +11,7 @@
 	margin: 0 auto;
 	margin-top: 60px;
 	overflow: hidden;
-	background: rgba(0, 0, 0, 0.25);
+	background: rgba(120, 120, 180, 0.25);
 
 	img {
 		position: absolute;

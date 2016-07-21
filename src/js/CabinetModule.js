@@ -74,10 +74,7 @@ function CabinetModule (params) {
 
 	this.setStyle = function (element, x, y) {
 
-		var friction = element.getAttribute('data-friction');
-
-		// cast
-		friction = parseFloat(friction);
+		var friction = this.getFriction(element);
 
 		// set by vendor
 		this.setByVendor.call(this, element, x, y, friction);
@@ -90,7 +87,22 @@ function CabinetModule (params) {
 		// element.style.MozTransform = null;
 		// element.style.msTransform = null;
 		// element.style.oTransform = null;
-		element.style.transform = 'translate3d(' + this.calcByFriction(x, friction) + '%, ' + this.calcByFriction(y, friction) * 10 + '%, 0)';
+		element.style.transform = 'translate3d(' + this.calcByFriction(x, friction.x) + '%, ' + this.calcByFriction(y, friction.y) * 10 + '%, 0)';
+
+	}
+
+	this.getFriction = function (element) {
+
+		var x = element.getAttribute('data-friction-x');
+		var y = element.getAttribute('data-friction-y');
+
+		x = parseFloat(x);
+		y = parseFloat(y);
+
+		return {
+			x: x,
+			y: y
+		};
 
 	}
 

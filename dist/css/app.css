@@ -1,0 +1,37 @@
+/* -------------------------------------------------------------
+  Sass CSS3 Mixins! The Cross-Browser CSS3 Sass Library
+  By: Matthieu Aussaguel, http://www.mynameismatthieu.com, @matthieu_tweets
+
+  List of CSS3 Sass Mixins File to be @imported and @included as you need
+
+  The purpose of this library is to facilitate the use of CSS3 on different browsers avoiding HARD TO READ and NEVER
+  ENDING css files
+
+  note: All CSS3 Properties are being supported by Safari 5
+  more info: http://www.findmebyip.com/litmus/#css3-properties
+
+------------------------------------------------------------- */
+.cabinet-module {
+  width: 60vw;
+  height: 45vw;
+  position: relative;
+  margin: 0 auto;
+  margin-top: 60px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.25); }
+  .cabinet-module img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }
+    .cabinet-module img:nth-child(1) {
+      z-index: 4; }
+    .cabinet-module img:nth-child(2) {
+      z-index: 3; }
+    .cabinet-module img:nth-child(3) {
+      z-index: 2; }
+    .cabinet-module img:nth-child(4) {
+      z-index: 1; }
+
+/*# sourceMappingURL=app.css.map */

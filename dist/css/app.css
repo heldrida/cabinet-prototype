@@ -36,5 +36,23 @@ body {
       z-index: 2; }
     .cabinet-module img:nth-child(4) {
       z-index: 1; }
+  .cabinet-module .poster {
+    background-image: url(//placekitten.com/800/600);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    width: 60vw;
+    height: 40.2vw; }
+  .cabinet-module .desktop,
+  .cabinet-module .mobile {
+    display: none; }
+
+@media screen and (min-width: 1025px) {
+  .cabinet-module .desktop {
+    display: block; } }
+
+@media screen and (max-width: 1024px) {
+  .cabinet-module .mobile {
+    display: block; } }
 
 /*# sourceMappingURL=app.css.map */

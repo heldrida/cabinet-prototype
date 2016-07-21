@@ -194,11 +194,49 @@ function CabinetModule (params) {
 
 	}
 
-	this.getOriginalImageRatio = function () {
+	this.getOriginalImageRatio = function (params) {
 
-		var p = new Promise(function (resolve, reject) {
+		var newImg = new Image();
 
-			var newImg = new Image();
+		if (typeof window.Promise !== 'undefined') {
+
+			var p = new Promise(function (resolve, reject) {
+
+				newImg.onload = function() {
+
+					var height = newImg.height;
+					var width = newImg.width;
+					var ratio = height / width;
+
+					resolve(ratio);
+
+				}
+
+				newImg.onerror = function () {
+
+					reject(false);
+
+				}
+
+				newImg.src = this.layers[0].getAttribute('src');
+
+			}.bind(this));
+
+			p.then(function (val) {
+
+				this.original_img_ratio = val;
+
+				if (typeof params.callback === 'function') {
+
+					params.callback.call(this);
+
+				}
+
+			}.bind(this));
+
+			return p;
+
+		} else {
 
 			newImg.onload = function() {
 
@@ -206,19 +244,25 @@ function CabinetModule (params) {
 				var width = newImg.width;
 				var ratio = height / width;
 
-				resolve(ratio);
+				this.original_img_ratio = ratio;
 
-			}
+				if (typeof params.callback === 'function') {
+
+					params.callback.call(this);
+
+				}
+
+			}.bind(this)
 
 			newImg.onerror = function () {
-	            reject(false);
-			}
+
+				console.log("Module, no images found!");
+
+			}.bind(this)
 
 			newImg.src = this.layers[0].getAttribute('src');
 
-		}.bind(this));
-
-		return p;
+		}
 
 	}
 
@@ -253,29 +297,9 @@ function CabinetModule (params) {
 	}
 
 	// set original image ratio
-	if (typeof window.Promise !== 'undefined') {
-
-		var p = this.getOriginalImageRatio();
-
-		p.then(function (val) {
-
-			this.original_img_ratio = val;
-
-			this.initialise();
-
-		}.bind(this));
-
-	} else if (typeof params.original_img_ratio === 'number') {
-
-		this.original_img_ratio = params.original_img_ratio;
-
-		this.initialise();
-
-	} else {
-
-		throw new Error('Parameter for the original image ratio failling, required for IE.');
-
-	}
+	this.getOriginalImageRatio({
+		callback: this.initialise
+	});
 
 }
 

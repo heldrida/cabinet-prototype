@@ -4504,6 +4504,18 @@
 /* 5 */
 /***/ function(module, exports) {
 
+	/**
+	 * A Layerlax module
+	 * 
+	 * Params:
+	 * 	
+	 * 	el [node] *required, 
+	 * 	debug [bool], 
+	 * 	dat_gui_instance [dat.GUI obj], 
+	 * 	stats [Stats.js object], 
+	 * 	hasParent [bool]
+	 *
+	 */
 	function CabinetModule (params) {
 
 		// Error handler
@@ -4535,6 +4547,7 @@
 		this.hasParent = params.hasParent;
 		this.original_img_ratio = null;
 
+		// (optional) dat gui dynamic value
 		this.setGUILib = function (params) {
 
 			this.gui = params.dat_gui_instance;
@@ -4544,6 +4557,7 @@
 			this.gui.add(this, 'debug');
 		}
 
+		// FPS js monitor (optional)
 		this.setStats = function (params) {
 
 			this.stats = params.stats;
@@ -4555,6 +4569,7 @@
 		// methods
 		this.onAnimationFrame = function () {
 
+			// FPS js monitor (optional)
 			this.stats ? this.stats.begin() : null;
 
 		    for (var i = 0; i < this.layers.length; i++) {
@@ -4576,6 +4591,7 @@
 
 		    }
 
+			// FPS js monitor (optional)
 			this.stats ? this.stats.end() : null;
 
 		    // callback

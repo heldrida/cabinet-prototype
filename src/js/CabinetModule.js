@@ -21,6 +21,7 @@ function CabinetModule (params) {
 	// config
 	this.debug = params.debug || false;
 	this.stats = params.stats || false;
+	this.breakpoint = params.breakpoint || 1024;
 
 	// properties
 	this.module = params.el;
@@ -62,6 +63,10 @@ function CabinetModule (params) {
 
 	// methods
 	this.onAnimationFrame = function () {
+
+		if (window.innerWidth <= this.breakpoint) {
+			return false;
+		}
 
 		// FPS js monitor (optional)
 		this.stats ? this.stats.begin() : null;
@@ -155,6 +160,16 @@ function CabinetModule (params) {
 		// update positions if current hovered element is child of module
 		if (this.module.contains(event.target)) {
 			this.calcPositions.call(this, event);
+		}
+
+	}
+
+	this.onWindowResize = function () {
+
+		this.moduleKeepRatioSize();
+
+		if (window.innerWidth > this.breakpoint) {
+			this.onAnimationFrame();
 		}
 
 	}
@@ -286,7 +301,7 @@ function CabinetModule (params) {
 	this.setEventListeners = function () {
 
 		window.addEventListener('mousemove', this.onMouseMove.bind(this));
-		window.addEventListener('resize', this.moduleKeepRatioSize.bind(this));
+		window.addEventListener('resize', this.onWindowResize.bind(this));
 
 	}
 

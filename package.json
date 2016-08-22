@@ -1,7 +1,7 @@
 {
-  "name": "basic_app_module_boilerplate",
+  "name": "prototype_boilerplate",
   "version": "0.0.1",
-  "description": "A very basic boilerplate for use in prototyping small apps or modules.",
+  "description": "A Prototyping boilerplate implemented on Gulp Webpack Sass Karma Jasmine, for use in prototyping small apps or modules.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

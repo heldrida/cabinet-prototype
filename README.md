@@ -1,7 +1,6 @@
-# Cabinet prototype
+# Prototype boilerplate
 
-A prototype for the cabinet module.
-
+A Prototyping boilerplate implemented on Gulp Webpack Sass Karma Jasmine, for use in prototyping small apps or modules.
 
 ```
 Dependencies installation:
@@ -15,6 +14,6 @@ Workflow:
 
 * Build: `gulp build`
 
-* Start the development server: `gulp serve`
+* Start the development server: `gulp serve` or `gulp`
 
 * To run tests: `gulp test`
